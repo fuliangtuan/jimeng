@@ -251,16 +251,10 @@ export async function request(
   refreshToken: string,
   options: AxiosRequestConfig & { noDefaultParams?: boolean } = {}
 ) {
-<<<<<<< Updated upstream
   const { token: tokenWithRegion, proxyUrl } = parseProxyFromToken(refreshToken);
   const regionInfo = parseRegionFromToken(tokenWithRegion);
-  const { isUS, isHK, isJP, isSG } = regionInfo;
-  await acquireToken(regionInfo.isInternational ? tokenWithRegion.substring(3) : tokenWithRegion);
-=======
-  const regionInfo = parseRegionFromToken(refreshToken);
   const { isUS, isHK, isJP, isSG, isPH } = regionInfo;
-  const token = await acquireToken(regionInfo.isInternational ? refreshToken.substring(3) : refreshToken);
->>>>>>> Stashed changes
+  await acquireToken(regionInfo.isInternational ? tokenWithRegion.substring(3) : tokenWithRegion);
   const deviceTime = util.unixTimestamp();
   const sign = util.md5(
     `9e2c|${uri.slice(-7)}|${PLATFORM_CODE}|${VERSION_CODE}|${deviceTime}||11ac`
